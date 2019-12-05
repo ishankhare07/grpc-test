@@ -3,6 +3,10 @@ package main
 import (
 	"context"
 	"grpc-test/pkg/services/fibonacci"
+	"log"
+	"net"
+
+	"google.golang.org/grpc"
 )
 
 var port = ":8888"
@@ -24,6 +28,33 @@ func (f *FibServer) GetNthFib(ctx context.Context, nth *fibonacci.FibNthRequest)
 	}, nil
 }
 
-func (f *FibServer) GetFibSeq(_ context.Context, _ *fibonacci.FibSeqUpperLimit) (*fibonacci.FibSeqResponse, error) {
-	panic("not implemented") // TODO: Implement
+func (f *FibServer) GetFibSeq(ctx context.Context, limit *fibonacci.FibSeqUpperLimit) (*fibonacci.FibSeqResponse, error) {
+	seq := []int32{}
+	var t1, t2 int32 = 0, 1
+
+	for ; limit.UpperBound > 0; limit.UpperBound-- {
+		seq = append(seq, t1)
+		next := t1 + t2
+		t1 = t2
+		t2 = next
+	}
+
+	return &fibonacci.FibSeqResponse{
+		Seq: seq,
+	}, nil
+}
+
+func main() {
+	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+
+	s := grpc.NewServer()
+
+	fibonacci.RegisterFibonacciServer(s, &FibServer{})
+	log.Printf("Server listening on port %s", port)
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf(err.Error())
+	}
 }
