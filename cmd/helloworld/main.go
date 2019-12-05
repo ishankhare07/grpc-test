@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "grpc-test/pkg/services/helloworld"
+	pb "github.com/ishankhare07/grpc-test/pkg/services/helloworld"
 	"log"
 	"net"
 

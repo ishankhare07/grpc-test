@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"grpc-test/pkg/services/fibonacci"
+	"github.com/ishankhare07/grpc-test/pkg/services/fibonacci"
 	"log"
 	"net"
 
