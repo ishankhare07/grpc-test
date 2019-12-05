@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package fibonacci;
+
+service Fibonacci {
+	rpc GetNthFib(FibNthRequest) returns (FibNthResponse) {}
+	rpc GetFibSeq(FibSeqUpperLimit) returns (FibSeqResponse) {}
+}
+
+message FibNthRequest {
+	int32 N = 1;
+}
+
+message FibNthResponse {
+	int64 Value = 1;
+}
+
+message FibSeqUpperLimit {
+	int32 UpperBound = 1;
+}
+
+message FibSeqResponse {
+	repeated int64 Seq = 1;
+}
