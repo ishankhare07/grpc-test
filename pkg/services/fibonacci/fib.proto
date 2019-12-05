@@ -12,7 +12,7 @@ message FibNthRequest {
 }
 
 message FibNthResponse {
-	int64 Value = 1;
+	int32 Value = 1;
 }
 
 message FibSeqUpperLimit {
@@ -20,5 +20,5 @@ message FibSeqUpperLimit {
 }
 
 message FibSeqResponse {
-	repeated int64 Seq = 1;
+	repeated int32 Seq = 1;
 }
